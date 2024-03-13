@@ -1,5 +1,5 @@
 .mail-preview {
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
 
   padding: 0.5em;
   border-block-end: 1px solid var(--clr-mail-border);
@@ -9,6 +9,10 @@
   background-color: var(--secondary-1);
 
   cursor: pointer;
+}
+
+.mail-preview .mail-body {
+  font-family: RobotoRegular;
 }
 
 .mail-preview .mail-sent-at {

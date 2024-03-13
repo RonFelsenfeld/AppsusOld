@@ -1,5 +1,5 @@
 const { useState, useEffect } = React
-const { NavLink } = ReactRouterDOM
+const { Link } = ReactRouterDOM
 
 export function MailFolderList({ onSetFilter, filterBy }) {
   const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
@@ -13,41 +13,33 @@ export function MailFolderList({ onSetFilter, filterBy }) {
       <button className="btn-compose">Compose</button>
 
       <div className="folder-container flex column">
-        <NavLink to="/mail/inbox">
-          <button
-            className="btn-folder"
-            onClick={() => setFilterByToEdit({ folder: 'inbox' })}
-          >
-            Inbox
-          </button>
-        </NavLink>
+        <button
+          className="btn-folder"
+          onClick={() => setFilterByToEdit({ folder: 'inbox' })}
+        >
+          Inbox
+        </button>
 
-        <NavLink to="/mail/sent">
-          <button
-            className="btn-folder"
-            onClick={() => setFilterByToEdit({ folder: 'sent' })}
-          >
-            Sent
-          </button>
-        </NavLink>
+        <button
+          className="btn-folder"
+          onClick={() => setFilterByToEdit({ folder: 'sent' })}
+        >
+          Sent
+        </button>
 
-        <NavLink to="/mail/trash">
-          <button
-            className="btn-folder"
-            onClick={() => setFilterByToEdit({ folder: 'trash' })}
-          >
-            Trash
-          </button>
-        </NavLink>
+        <button
+          className="btn-folder"
+          onClick={() => setFilterByToEdit({ folder: 'trash' })}
+        >
+          Trash
+        </button>
 
-        <NavLink to="/mail/draft">
-          <button
-            className="btn-folder"
-            onClick={() => setFilterByToEdit({ folder: 'draft' })}
-          >
-            Draft
-          </button>
-        </NavLink>
+        <button
+          className="btn-folder"
+          onClick={() => setFilterByToEdit({ folder: 'draft' })}
+        >
+          Draft
+        </button>
       </div>
     </section>
   )

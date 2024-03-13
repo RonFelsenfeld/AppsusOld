@@ -25,6 +25,14 @@ window.ms = emailService
 
 function query(filterBy = getDefaultCriteria()) {
   return storageService.query(MAIL_KEY).then(mails => {
+    if (filterBy.folder) {
+      mails = _filterByFolder(mails, filterBy.folder)
+    }
+    // if (filterBy.txt) {
+    //   const regex = new RegExp(filterBy.desc, 'i')
+    //   cars = cars.filter(car => regex.test(car.desc))
+    // }
+
     return mails
   })
 }
@@ -67,8 +75,8 @@ function getDefaultCriteria() {
   }
 }
 
-function getUnreadCount() {
-  return query().then(mails => {
+function getUnreadCount(filterBy) {
+  return query(filterBy).then(mails => {
     const totalUnread = mails.reduce((acc, mail) => {
       if (!mail.isRead) acc++
       return acc
@@ -112,4 +120,29 @@ function _createMails() {
 
     utilService.saveToStorage(MAIL_KEY, mails)
   }
+}
+
+function _filterByFolder(mails, folder) {
+  let filteredMails
+
+  switch (folder) {
+    case 'inbox':
+      filteredMails = mails.filter(
+        mail => mail.to === loggedUser.email && !mail.removedAt
+      )
+      break
+    case 'sent':
+      filteredMails = mails.filter(mail => mail.from === loggedUser.email)
+      break
+    case 'trash':
+      filteredMails = mails.filter(mail => mail.removedAt)
+      break
+    case 'draft':
+      filteredMails = mails.filter(
+        mail => mail.from === loggedUser.email && !mail.sentAt
+      )
+      break
+  }
+
+  return filteredMails
 }

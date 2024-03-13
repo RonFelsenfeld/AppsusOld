@@ -7,33 +7,36 @@ import { MailList } from '../cmps/MailList.jsx'
 import { MailFolderList } from '../cmps/MailFolderList.jsx'
 
 export function MailIndex() {
+  const [searchParams, setSearchParams] = useSearchParams()
+
   const [mails, setMails] = useState(null)
   const [unreadCount, setUnreadCount] = useState(0)
-
-  const [searchParams, setSearchParams] = useSearchParams()
   const [filterBy, setFilterBy] = useState(
     emailService.getFilterFromParams(searchParams)
   )
+
   const { mailId } = useParams()
 
   useEffect(() => {
     loadMails()
-    calcUnread()
     setSearchParams(filterBy)
   }, [filterBy])
 
   function loadMails() {
     emailService
-      .query()
-      .then(setMails)
-      .catch(err => console.log('Had issues with loading mails'))
+      .query(filterBy)
+      .then(mails => {
+        setMails(mails)
+        calcUnread()
+      })
+      .catch(err => console.error('Had issues with loading mails', err))
   }
 
   function calcUnread() {
     emailService
-      .getUnreadCount()
+      .getUnreadCount(filterBy)
       .then(setUnreadCount)
-      .catch(err => console.log('Had issues with calculating unread mails'))
+      .catch(err => console.error('Had issues with calculating unread mails'))
   }
 
   function onReadMail(mailId) {
@@ -52,7 +55,7 @@ export function MailIndex() {
         )
         calcUnread()
       })
-      .catch(err => console.log('Had issues with reading mail:', err))
+      .catch(err => console.err('Had issues with reading mail:', err))
   }
 
   function onSetFilter(fieldsToUpdate) {
@@ -74,6 +77,7 @@ export function MailIndex() {
           </div>
         </Fragment>
       )}
+
       <Outlet></Outlet>
     </section>
   )
