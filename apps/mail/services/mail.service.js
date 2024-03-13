@@ -16,6 +16,7 @@ export const emailService = {
   getEmptyMail,
   getDefaultCriteria,
   getUnreadCount,
+  getFilterFromParams,
 }
 _createMails()
 
@@ -77,14 +78,14 @@ function getUnreadCount() {
   })
 }
 
-// function getFilterFromParams(searchParams = {}) {
-//   const defaultFilter = getDefaultFilter()
-//   return {
-//     txt: searchParams.get('txt') || defaultFilter.txt,
-//     minSpeed: searchParams.get('minSpeed') || defaultFilter.minSpeed,
-//     desc: searchParams.get('desc') || defaultFilter.desc,
-//   }
-// }
+function getFilterFromParams(searchParams = {}) {
+  const defaultCriteria = getDefaultCriteria()
+  return {
+    folder: searchParams.get('folder') || defaultCriteria.folder,
+    txt: searchParams.get('txt') || defaultCriteria.txt,
+    labels: searchParams.get('labels') || defaultCriteria.labels,
+  }
+}
 
 ////////////////////////////////////////////////////
 
