@@ -1,4 +1,4 @@
-.note-index {
-  color: black;
-  /* Change */
+.note-index.preview {
+  gap: 1.5em;
+  margin-top: 2em;
 }

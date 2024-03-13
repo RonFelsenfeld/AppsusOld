@@ -1,4 +1,7 @@
 const { useState, useEffect } = React
+const { Link, Outlet } = ReactRouterDOM
+const { useParams } = ReactRouter
+
 
 
 import { NotePreview } from "../cmps/NotePreview.jsx"
@@ -6,9 +9,11 @@ import { NoteFilter } from "../cmps/NoteFIlter.jsx"
 
 import { noteService } from "../services/note.service.js"
 import { AddNote } from "../cmps/AddNote.jsx"
+import { eventBusService, showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 
 export function NoteIndex() {
     const [notes, setNotes] = useState(null)
+    const { noteId } = useParams()
 
     useEffect(() => {
         loadNotes()
@@ -22,7 +27,6 @@ export function NoteIndex() {
             })
     }
 
-
     function onRemoveNote(noteId) {
         noteService.remove(noteId)
             .then(() => {
@@ -35,20 +39,39 @@ export function NoteIndex() {
             })
     }
 
+    function addNote(note) {
+        noteService.save(note)
+            .then((updatedNote) => {
+                setNotes(prevNotes => [{ ...updatedNote }, ...prevNotes])
+                // showSuccessMsg(`adding ${note.title}`)
+            })
+
+            .catch(err => {
+                console.log(err)
+                // showErrorMsg('already have it.', err)
+            })
+    }
+
 
     if (!notes) return <div>no notes to show..</div>
     return <div className="notes-index">
         {/* <NoteFilter /> */}
-        <AddNote />
-        <ul className="note-index clean-list flex wrap space-around">
-            {
-                notes.map(note => <li key={note.id}>
-                    <NotePreview
-                        note={note}
-                        onRemoveNote={onRemoveNote}
-                    />
-                </li>)
-            }
-        </ul>
+        <AddNote addNote={addNote} />
+        {!noteId &&
+            <ul className="note-index preview clean-list flex wrap space-around">
+                {
+                    notes.map(note => (
+                        <li key={note.id}>
+                            <Link to={`/note/edit/${note.id}`}>
+                                <NotePreview
+                                    note={note}
+                                    onRemoveNote={onRemoveNote}
+                                />
+                            </Link>
+                        </li>)
+                    )}
+            </ul>}
+        <Outlet></Outlet>
+
     </div>
 }

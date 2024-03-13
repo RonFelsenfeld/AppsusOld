@@ -39,12 +39,13 @@ function save(note) {
     if (note.id) {
         return storageService.put(NOTE_KEY, note)
     } else {
-        // note = _createCar(note.vendor, note.maxSpeed)
-        return storageService.post(NOTE_KEY, note)
+
+        return storageService.post(NOTE_KEY, getEmptyNote(note.title, note.txt))
     }
 }
 
-function getEmptyNote() {
+function getEmptyNote(title = '', txt = '') {
+
     return {
         id: utilService.makeId(),
         createdAt: new Date(),
@@ -54,14 +55,14 @@ function getEmptyNote() {
             backgroundColor: '#f6f8fc',
         },
         info: {
-            title: 'this is the title',
-            txt: 'Fullstack Me Baby!'
+            title,
+            txt
         }
     }
 }
 
-function _createNote() {
-    const note = getEmptyNote()
+function _createNote(title = 'this is the way', txt = 'Fullstack me baby!') {
+    const note = getEmptyNote(title, txt)
     return note
 }
 
@@ -69,6 +70,8 @@ function _createNotes() {
     let notes = utilService.loadFromStorage(NOTE_KEY)
     if (!notes || !notes.length) {
         notes = []
+        notes.push(_createNote())
+        notes.push(_createNote())
         notes.push(_createNote())
         notes.push(_createNote())
         notes.push(_createNote())
