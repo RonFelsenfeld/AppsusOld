@@ -4,8 +4,9 @@
 }
 
 .mail-details .mail-from {
-  font-size: 2em;
+  font-size: 2.5em;
   font-family: RobotoBold, serif;
+  margin-inline-end: 1em;
 }
 
 .mail-details .mail-sent-at {

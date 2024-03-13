@@ -15,6 +15,7 @@ export const emailService = {
   save,
   getEmptyMail,
   getDefaultCriteria,
+  getUnreadCount,
 }
 _createMails()
 
@@ -63,6 +64,17 @@ function getDefaultCriteria() {
     txt: '',
     labels: [],
   }
+}
+
+function getUnreadCount() {
+  return query().then(mails => {
+    const totalUnread = mails.reduce((acc, mail) => {
+      if (!mail.isRead) acc++
+      return acc
+    }, 0)
+
+    return totalUnread
+  })
 }
 
 // function getFilterFromParams(searchParams = {}) {

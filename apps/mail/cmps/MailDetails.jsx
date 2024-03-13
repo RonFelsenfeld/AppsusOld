@@ -15,7 +15,13 @@ export function MailDetails() {
   function loadMail() {
     emailService
       .get(mailId)
-      .then(setMail)
+      .then(mail => {
+        if (!mail.isRead) mail.isRead = true
+        emailService
+          .save(mail)
+          .then(setMail)
+          .catch(err => console.log('Had issues with loading mail', err))
+      })
       .catch(err => {
         console.log('Had issues loading email', err)
       })
