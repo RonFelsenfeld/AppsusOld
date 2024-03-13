@@ -1,3 +1,4 @@
 .mail-list {
   background-color: white;
+  border-block-start: 1px solid var(--clr-mail-border);
 }

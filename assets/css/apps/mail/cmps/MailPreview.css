@@ -1,6 +1,7 @@
 .mail-preview {
   grid-template-columns: repeat(3, 1fr);
   font-size: 1.4em;
+  border-block-end: 1px solid var(--clr-mail-border);
 }
 
 .mail-preview .mail-sent-at {
