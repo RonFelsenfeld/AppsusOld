@@ -1,3 +1,3 @@
 export function MailPreview() {
-  return <div>Mail Preview</div>
+  return <article>hi From prev</article>
 }
