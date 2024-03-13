@@ -8,7 +8,7 @@ import { utilService } from "../../../services/util.service.js"
 export function EditNote() {
     const [noteToEdit, setNoteToEdit] = useState(null)
     const { noteId } = useParams()
-    console.log(noteToEdit);
+
 
     useEffect(() => {
         if (noteId) loadNote()
@@ -25,15 +25,21 @@ export function EditNote() {
     function handleChange({ target }) {
         const field = target.name
         const value = target.value
-        // console.log(target);
-        setNoteToEdit((prevNote) => ({ ...prevNote, [field]: value }))
-        console.log('noteToEDit',noteToEdit);
+
+        setNoteToEdit((prevNote) => ({ ...prevNote,info:{...prevNote.info,[field]:value}}))
+        console.log('noteToEDit', noteToEdit)
     }
 
-    function onSaveNote() {
-        console.log('hi');
+    function onSaveNote(ev) {
+        ev.preventDefault()
+
     }
-if(!noteToEdit) return <h1>loading...</h1>
+
+
+    if (!noteToEdit) return <h1>loading...</h1>
+    const title = noteToEdit.info.title
+    const txt = noteToEdit.info.txt
+
     return (
         <section className="note-edit">
             <form onSubmit={onSaveNote}>
@@ -44,7 +50,7 @@ if(!noteToEdit) return <h1>loading...</h1>
                     id="save"
                     name="title"
                     onChange={handleChange}
-                    value={noteToEdit.info.title}
+                    value={title}
                 />
                 <input
                     placeholder="Note text.."
@@ -52,7 +58,7 @@ if(!noteToEdit) return <h1>loading...</h1>
                     id="txt"
                     name="txt"
                     onChange={handleChange}
-                    value={noteToEdit.info.txt}
+                    value={txt}
                 />
 
                 <button>add</button>
