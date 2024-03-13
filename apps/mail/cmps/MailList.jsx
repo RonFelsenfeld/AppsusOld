@@ -1,3 +1,9 @@
+import { MailPreview } from './MailPreview.jsx'
+
 export function MailList() {
-    return <div>Mail list</div>
+  return (
+    <ul className="mail-list">
+      <MailPreview />
+    </ul>
+  )
 }
