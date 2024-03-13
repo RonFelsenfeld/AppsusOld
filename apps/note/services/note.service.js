@@ -5,7 +5,7 @@ const NOTE_KEY = 'noteDB'
 _createNotes()
 
 
-export const notesService = {
+export const noteService = {
     query,
     get,
     remove,
@@ -15,12 +15,10 @@ export const notesService = {
     // getFilterFromParams
 }
 // For Debug only
-window.cs = notesService
+window.cs = noteService
 
-
-function query(filterBy = getDefaultFilter()) {
-    console.log('filterBy', filterBy)
-
+//param = filterBy = getDefaultFilter()
+function query() {
     return storageService.query(NOTE_KEY)
         .then(notes => {
             return notes
@@ -53,9 +51,10 @@ function getEmptyNote() {
         type: 'NoteTxt',
         isPinned: false,
         style: {
-            backgroundColor: '#00d',
+            backgroundColor: '#f6f8fc',
         },
         info: {
+            title: 'this is the title',
             txt: 'Fullstack Me Baby!'
         }
     }
@@ -76,6 +75,8 @@ function _createNotes() {
         utilService.saveToStorage(NOTE_KEY, notes)
     }
 }
+
+
 
 // function getDefaultFilter() {
 //     return { txt: '', minSpeed: 50, desc: '' }
