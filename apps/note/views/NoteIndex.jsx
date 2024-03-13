@@ -14,6 +14,7 @@ import { eventBusService, showErrorMsg, showSuccessMsg } from "../../../services
 export function NoteIndex() {
     const [notes, setNotes] = useState(null)
     const { noteId } = useParams()
+    // const [isEdit, setIsEdit] = useState(false)
 
     useEffect(() => {
         loadNotes()
@@ -52,6 +53,9 @@ export function NoteIndex() {
             })
     }
 
+    function onUpdateNote(note) {
+        setNotes((prevNotes) => prevNotes.map((currNote) => currNote.id === note.id ? note : currNote))
+    }
 
     if (!notes) return <div>no notes to show..</div>
     return <div className="notes-index">
@@ -64,6 +68,7 @@ export function NoteIndex() {
                         <li key={note.id}>
                             <Link to={`/note/edit/${note.id}`}>
                                 <NotePreview
+                                    // setIsEdit={setIsEdit}
                                     note={note}
                                     onRemoveNote={onRemoveNote}
                                 />
@@ -71,7 +76,7 @@ export function NoteIndex() {
                         </li>)
                     )}
             </ul>}
-        <Outlet></Outlet>
+        <Outlet context={[onUpdateNote]}></Outlet>
 
     </div>
 }

@@ -10,6 +10,7 @@
 
 .note-preview:hover {
     box-shadow: 0px 3px 4px rgba(0, 0, 0, .35);
+    cursor: pointer;
 }
 
 .note-preview h2 {

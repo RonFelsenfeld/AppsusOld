@@ -1,6 +1,6 @@
 const { useState, useEffect } = React
-const { useParams } = ReactRouter
-const { Outlet } = ReactRouterDOM
+const { useNavigate, useParams } = ReactRouter
+const { Outlet, useOutletContext } = ReactRouterDOM
 
 import { noteService } from "../../note/services/note.service.js"
 import { utilService } from "../../../services/util.service.js"
@@ -8,6 +8,10 @@ import { utilService } from "../../../services/util.service.js"
 export function EditNote() {
     const [noteToEdit, setNoteToEdit] = useState(null)
     const { noteId } = useParams()
+    const navigate = useNavigate()
+    const [onUpdateNote] = useOutletContext()
+    // console.log(loadNotes)
+
 
 
     useEffect(() => {
@@ -26,13 +30,17 @@ export function EditNote() {
         const field = target.name
         const value = target.value
 
-        setNoteToEdit((prevNote) => ({ ...prevNote,info:{...prevNote.info,[field]:value}}))
-        console.log('noteToEDit', noteToEdit)
+        setNoteToEdit((prevNote) => ({ ...prevNote, info: { ...prevNote.info, [field]: value } }))
     }
 
     function onSaveNote(ev) {
         ev.preventDefault()
-
+        noteService.save(noteToEdit)
+            .then((savedNote) => {
+                // onEditNote()
+                onUpdateNote(savedNote)
+                navigate('/note')
+            })
     }
 
 
