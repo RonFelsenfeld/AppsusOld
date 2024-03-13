@@ -1,0 +1,16 @@
+.note-preview {
+    padding: .5em;
+    width: 300px;
+    height: 200px;
+    /* background-color: var(--clr1bg-light); */
+    background-color: antiquewhite;
+    /* text-align: center; */
+    /* font-family: 'Edu VIC WA NT Beginner', cursive; */
+    border-radius: 10px;
+    /* transition: .5s; */
+    border: 1px solid lightgray;
+}
+
+.note-preview:hover {
+    background-color: var(--clr1bg-darker);
+}
