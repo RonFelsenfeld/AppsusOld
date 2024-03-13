@@ -66,17 +66,18 @@ export function NoteIndex() {
                 {
                     notes.map(note => (
                         <li key={note.id}>
-                            <Link to={`/note/edit/${note.id}`}>
+                            {/* <Link to={`/note/edit/${note.id}`}> */}
                                 <NotePreview
                                     // setIsEdit={setIsEdit}
                                     note={note}
                                     onRemoveNote={onRemoveNote}
+                                    onUpdateNote={onUpdateNote}
                                 />
-                            </Link>
+                            {/* </Link> */}
                         </li>)
                     )}
             </ul>}
-        <Outlet context={[onUpdateNote]}></Outlet>
+        {/* <Outlet context={[onUpdateNote]}></Outlet> */}
 
     </div>
 }
