@@ -59,7 +59,7 @@ function getEmptyMail() {
 
 function getDefaultCriteria() {
   return {
-    status: 'inbox',
+    folder: 'inbox',
     txt: '',
     labels: [],
   }
@@ -80,7 +80,7 @@ function _createMail() {
   const newMail = getEmptyMail()
 
   newMail.id = utilService.makeId()
-  newMail.subject = utilService.makeLorem(3)
+  newMail.subject = utilService.makeLorem(2)
   newMail.body = utilService.makeLorem(20)
   newMail.sentAt = Date.now()
   newMail.from = `${utilService.makeLorem(1).replaceAll(' ', '')}@mail.com`

@@ -8,6 +8,7 @@ export const utilService = {
   getMonthName,
   saveToStorage,
   loadFromStorage,
+  formatDate,
 }
 
 function makeId(length = 6) {
@@ -105,6 +106,11 @@ function getMonthName(date) {
     'December',
   ]
   return monthNames[date.getMonth()]
+}
+
+function formatDate(timeStamp) {
+  const date = new Date(timeStamp)
+  return date.toLocaleDateString()
 }
 
 function saveToStorage(key, val) {

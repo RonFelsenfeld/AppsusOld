@@ -2,8 +2,15 @@
   grid-template-columns: repeat(3, 1fr);
   font-size: 1.4em;
   border-block-end: 1px solid var(--clr-mail-border);
+
+  cursor: pointer;
 }
 
 .mail-preview .mail-sent-at {
   justify-self: end;
+}
+
+.mail-preview:hover {
+  box-shadow: inset 1px 0 0 #dadce0, inset -1px 0 0 #dadce0,
+    0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
 }

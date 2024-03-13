@@ -1,17 +1,10 @@
-
-
 export function AddNote() {
+  return (
+    <form>
+      <label htmlFor="add">Take a note</label>
+      <input type="text" id="add" name="title" />
 
-
-
-
-    return <form>
-        <lable htmlFor="add">Take a note</lable>
-        <input
-            type="text"
-            id="add"
-            name="title" />
-
-            <button></button>
+      <button></button>
     </form>
+  )
 }
